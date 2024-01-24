@@ -14,7 +14,7 @@
     "RIGHT_THRESHOLD": 160
   },
   "ROAD_RASH": {
-    "DOWN_THRESHOLD": 160,
+    "X_THRESHOLD": 160,
     "LEFT_THRESHOLD": 130,
     "RIGHT_THRESHOLD": 130,
     "GAME_URL": "https://arcadespot.com/game/road-rash/"
