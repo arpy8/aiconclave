@@ -72,6 +72,8 @@ elif selected_task == "Settings":
     tekken_rpunch_angle_uthresh = st.number_input("Tekken Right Punch Angle Upper Threshold", value=data["TEKKEN"]["RPUNCH_ANGLE_UTHRESH"], step=5, key="tekken_rpunch_angle_uthresh")
     tekken_lpunch_angle_lthresh = st.number_input("Tekken Left Punch Angle Lower Threshold", value=data["TEKKEN"]["LPUNCH_ANGLE_LTHRESH"], step=5, key="tekken_lpunch_angle_lthresh")
     tekken_lpunch_angle_uthresh = st.number_input("Tekken Left Punch Angle Upper Threshold", value=data["TEKKEN"]["LPUNCH_ANGLE_UTHRESH"], step=5, key="tekken_lpunch_angle_uthresh")
+    data["TEKKEN"]["RANDOM_LOWER"] = tekken_random_lower
+    data["TEKKEN"]["RANDOM_UPPER"] = tekken_random_upper
     data["TEKKEN"]["THRESHOLD"] = tekken_threshold
     data["TEKKEN"]["RPUNCH_ANGLE_LTHRESH"] = tekken_rpunch_angle_lthresh
     data["TEKKEN"]["RPUNCH_ANGLE_UTHRESH"] = tekken_rpunch_angle_uthresh
@@ -79,9 +81,9 @@ elif selected_task == "Settings":
     data["TEKKEN"]["LPUNCH_ANGLE_UTHRESH"] = tekken_lpunch_angle_uthresh
 
     st.write("## Road Rash")
-    road_rash_down_threshold = st.number_input("Road Rash Down Threshold", value=data["ROAD_RASH"]["DOWN_THRESHOLD"], step=10, key="road_rash_down_threshold")
+    road_rash_x_threshold = st.number_input("Road Rash Accelerate Threshold", value=data["ROAD_RASH"]["X_THRESHOLD"], step=10, key="road_rash_x_threshold")
     road_rash_left_threshold = road_rash_right_threshold = st.number_input("Road Rash Left/Right Threshold", value=data["ROAD_RASH"]["LEFT_THRESHOLD"], step=10, key="road_rash_left_threshold")
-    data["ROAD_RASH"]["DOWN_THRESHOLD"] = road_rash_down_threshold
+    data["ROAD_RASH"]["X_THRESHOLD"] = road_rash_x_threshold
     data["ROAD_RASH"]["LEFT_THRESHOLD"] = data["ROAD_RASH"]["RIGHT_THRESHOLD"] = road_rash_left_threshold
 
     st.write("## Chrome Dino")
