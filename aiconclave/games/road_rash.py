@@ -4,7 +4,7 @@ import webbrowser
 import pyautogui as pg
 
 from aiconclave.trackers.PoseModule import PoseDetector
-from aiconclave.constants import RR_LEFT_THRESHOLD, RR_RIGHT_THRESHOLD, RR_DOWN_THRESHOLD, RR_GAME_URL
+from aiconclave.constants import RR_LEFT_THRESHOLD, RR_RIGHT_THRESHOLD, RR_X_THRESHOLD, RR_GAME_URL
 
 pg.FAILSAFE = False
 
@@ -12,19 +12,18 @@ def open_game_tab():
     webbrowser.open(RR_GAME_URL, new=2)
 
 def put_text(img, text, position):
-    cv2.putText(img, text, position, cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
+    cv2.putText(img, text, position, cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 1, cv2.LINE_AA)
 
 
 def main():
+    global count, hand_near_face, up_key_pressed
+
     open_game_tab()
     
     time.sleep(3)
     
     pg.keyDown('x')
     pg.keyDown('up')
-    
-    global count, hand_near_face, up_key_pressed
-
     cap = cv2.VideoCapture(0)
 
     pose_detector = PoseDetector(staticMode=False,
@@ -37,7 +36,8 @@ def main():
 
     left_key_pressed = False
     right_key_pressed = False
-    down_key_pressed = False
+    wrist_key_pressed = False
+    x_key_pressed = False
 
     while True:
         try:
@@ -56,9 +56,9 @@ def main():
                 
                 left_distance, _, _ = pose_detector.findDistance(left_elbow_coords, left_wrist_coords, img=img, color=(0, 0, 255), scale=5)
                 right_distance, _, _ = pose_detector.findDistance(right_elbow_coords, right_wrist_coords, img=img, color=(0, 0, 255), scale=5)                
-
-                put_text(img, f"Left Key: {'Pressed' if left_key_pressed else 'Released'}", (img.shape[1]-300, 100))
-                put_text(img, f"Right Key: {'Pressed' if right_key_pressed else 'Released'}", (img.shape[1]-300, 140))
+                
+                put_text(img, f"Distance (L,R): {round(left_distance, 2), round(right_distance, 2)}", (img.shape[1]-440, 90))
+                put_text(img, f"Thresh (L,R): {RR_LEFT_THRESHOLD, RR_RIGHT_THRESHOLD}", (img.shape[1]-440, 130))
 
                 if left_distance < RR_LEFT_THRESHOLD and not left_key_pressed:
                     pg.keyDown('left')
@@ -76,14 +76,14 @@ def main():
                     pg.keyUp('right')
                     right_key_pressed = False
 
-                if left_distance < RR_DOWN_THRESHOLD and right_distance < RR_DOWN_THRESHOLD and not down_key_pressed:
+                if left_distance < RR_X_THRESHOLD and right_distance < RR_X_THRESHOLD and not x_key_pressed:
                     pg.keyDown('x')
-                    down_key_pressed = True
+                    x_key_pressed = True
 
-                elif left_distance >= RR_DOWN_THRESHOLD and right_distance >= RR_DOWN_THRESHOLD and down_key_pressed:
+                elif left_distance >= RR_X_THRESHOLD and right_distance >= RR_X_THRESHOLD and x_key_pressed:
                     pg.keyUp('x')
-                    down_key_pressed = False
-
+                    x_key_pressed = False
+                
         except Exception as e:
             print(e)
             cv2.destroyAllWindows()
@@ -97,7 +97,6 @@ def main():
             cv2.destroyAllWindows()
             cap.release()
             break
-
 
 if __name__ == "__main__":
     main()
