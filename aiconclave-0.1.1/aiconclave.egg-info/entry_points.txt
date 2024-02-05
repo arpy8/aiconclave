@@ -1,0 +1,2 @@
+[console_scripts]
+aiconclave = aiconclave.main:main

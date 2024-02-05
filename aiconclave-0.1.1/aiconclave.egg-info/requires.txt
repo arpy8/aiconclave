@@ -1,0 +1,11 @@
+setuptools
+tqdm
+termcolor
+opencv-python
+mediapipe
+pygame
+pyautogui
+pydirectinput
+customtkinter
+streamlit
+streamlit-option-menu

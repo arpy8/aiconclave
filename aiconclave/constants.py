@@ -26,6 +26,8 @@ Location: {}
 with open(path_converter('assets/config.json'), 'r') as json_file:
     data = json.load(json_file)
 
+PORT = data["PORT"]
+
 CD_UP_THRESHOLD = data["CHROME_DINO"]["UP_THRESHOLD"]
 CD_GAME_URL = data["CHROME_DINO"]["GAME_URL"]
 

@@ -1,21 +1,30 @@
+import os
 import json
 import time
 import requests
+import subprocess
 import streamlit as st
+from termcolor import colored
 from streamlit_option_menu import option_menu
+from datetime import datetime
 
-from aiconclave.constants import *
 import aiconclave.games.tekken as tkk
 import aiconclave.games.pin_ball as pb
 import aiconclave.games.road_rash as rr
 import aiconclave.games.motor_rider as mr
 import aiconclave.games.chrome_dino as cd
+import aiconclave.games.air_drums as ad
+from aiconclave.constants import *
 
+
+def stop_streamlit_app():
+    print(colored(f"[{datetime.now().strftime('%H:%M:%S')}] App stopped successfully", "red"))
+    os.system('taskkill /f /im "streamlit.exe"')
 
 css_style = {
     "icon": {"color": "white"},
     "nav-link": {"--hover-color": "grey"},
-    "nav-link-selected": {"background-color": "#3f9699"},   
+    "nav-link-selected": {"background-color": "#3f9699"},
 }
 
 st.set_page_config(page_title="AI Conclave", page_icon="https://avatars.githubusercontent.com/u/80619013?s=200&v=4")
@@ -50,13 +59,17 @@ if selected_task == "Home":
         pb.main()
     if st.button("Motor Rider", use_container_width=True):
         mr.main()
+    if st.button("Air Drums", use_container_width=True):
+        ad.main()
 
     st.write("<br><br>", unsafe_allow_html=True)
 
     if st.button("FAILSAFE", use_container_width=True):
-        st.toast("""yeah this doesn't work lol, close the terminal window to stop the script""")
-        exit()
-
+        try:
+            stop_streamlit_app()
+        except Exception as e:
+            st.toast("""yeah this doesn't work lol, close the terminal window to stop the script""")
+            exit()
 
 elif selected_task == "Settings":
     st.write("<center><h1>Game Constants</h1></center>", unsafe_allow_html=True)
@@ -70,8 +83,8 @@ elif selected_task == "Settings":
     tekken_threshold = st.number_input("Tekken Threshold", value=data["TEKKEN"]["THRESHOLD"], step=10, key="tekken_threshold")
     tekken_rpunch_angle_lthresh = st.number_input("Tekken Right Punch Angle Lower Threshold", value=data["TEKKEN"]["RPUNCH_ANGLE_LTHRESH"], step=5, key="tekken_rpunch_angle_lthresh")
     tekken_rpunch_angle_uthresh = st.number_input("Tekken Right Punch Angle Upper Threshold", value=data["TEKKEN"]["RPUNCH_ANGLE_UTHRESH"], step=5, key="tekken_rpunch_angle_uthresh")
-    tekken_lpunch_angle_lthresh = st.number_input("Tekken Left Punch Angle Lower Threshold", value=data["TEKKEN"]["LPUNCH_ANGLE_LTHRESH"], step=5, key="tekken_lpunch_angle_lthresh")
     tekken_lpunch_angle_uthresh = st.number_input("Tekken Left Punch Angle Upper Threshold", value=data["TEKKEN"]["LPUNCH_ANGLE_UTHRESH"], step=5, key="tekken_lpunch_angle_uthresh")
+    tekken_lpunch_angle_lthresh = st.number_input("Tekken Left Punch Angle Lower Threshold", value=data["TEKKEN"]["LPUNCH_ANGLE_LTHRESH"], step=5, key="tekken_lpunch_angle_lthresh")
     data["TEKKEN"]["RANDOM_LOWER"] = tekken_random_lower
     data["TEKKEN"]["RANDOM_UPPER"] = tekken_random_upper
     data["TEKKEN"]["THRESHOLD"] = tekken_threshold
@@ -100,13 +113,24 @@ elif selected_task == "Settings":
     data["MOTOR_RIDER"]["LEFT_THRESHOLD"] = data["MOTOR_RIDER"]["RIGHT_THRESHOLD"] = motor_left_threshold
     data["MOTOR_RIDER"]["DOWN_THRESHOLD"] = motor_down_threshold
 
-
-    with open(path_converter('assets/config.json'), 'w') as json_file:
-        json.dump(data, json_file, indent=2)
+    restart_app = st.button("Restart App", key="Restart App", use_container_width=True)
+    
+    if restart_app:
+        data["PORT"] = int(data["PORT"])+1
         
-
-elif selected_task == "Halp": 
-    st.text_input("Enter your name here *", key="name")    
+        with open(path_converter('assets/config.json'), 'w') as json_file:
+            json.dump(data, json_file, indent=2)
+        
+        print(colored(f"[{datetime.now().strftime('%H:%M:%S')}] Restarting app", "yellow"))
+        
+        exe_path = path_converter('streamlit_app.py')
+        command = ['streamlit', 'run' , exe_path, '--server.port', f'{data["PORT"]}']
+        result = subprocess.run(command, stdout=subprocess.PIPE, text=True)
+        
+        print(colored(f"[{datetime.now().strftime('%H:%M:%S')}] App restarted successfully, http://localhost:{data['PORT']}/", "green"))
+        
+elif selected_task == "Halp":
+    st.text_input("Enter your name here *", key="name")
     st.text_input("Enter your query here", key="query")
     st.text_input("Where you at?", key="loc")
     

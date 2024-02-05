@@ -1,4 +1,4 @@
-{
+{ "PORT": 2970,
   "CHROME_DINO": {
     "UP_THRESHOLD": 260,
     "GAME_URL": "https://elgoog.im/dinosaur-game/3d/"

@@ -73,7 +73,7 @@ def main():
             print(e)
             cv2.destroyAllWindows()
             cap.release()
-            break          
+            break
                 
         cv2.namedWindow("Videocam Output", cv2.WINDOW_NORMAL)
         cv2.imshow("Videocam Output", img)
