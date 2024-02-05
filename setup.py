@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="aiconclave",
-    version="0.1.2",
+    version="0.1.3",
     author="Arpit Sengar (arpy8)",
     author_email="arpitsengar99@gmail.com",
     description="This package contains the python scripts for the AI conclave exhibition.",
@@ -25,6 +25,9 @@ setup(
         "customtkinter",
         "streamlit",
         "streamlit-option-menu",
+        "requests",
+        "numpy",
+        "imutils"
     ],
     entry_points={
         "console_scripts": [

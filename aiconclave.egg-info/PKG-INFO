@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: aiconclave
+Version: 0.1.3
+Summary: This package contains the python scripts for the AI conclave exhibition.
+Home-page: https://github.com/arpy8/aiconclave
+Author: Arpit Sengar (arpy8)
+Author-email: arpitsengar99@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# aiconclave
+This package contains the python scripts for the AI conclave exhibition 2023.
+
+- Command Prompt:
+```
+pip install aiconclave && aiconclave
+```
+- Powershell:
+```
+pip install aiconclave ; aiconclave
+```

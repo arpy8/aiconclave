@@ -1,0 +1,39 @@
+{ "PORT": 2970,
+  "CHROME_DINO": {
+    "UP_THRESHOLD": 260,
+    "GAME_URL": "https://elgoog.im/dinosaur-game/3d/"
+  },
+  "MOTOR_RIDER": {
+    "LEFT_THRESHOLD": 160,
+    "RIGHT_THRESHOLD": 160,
+    "DOWN_THRESHOLD": 160
+  },
+  "PIN_BALL": {
+    "GAME_URL": "https://playpager.com/pinball-online/",
+    "LEFT_THRESHOLD": 160,
+    "RIGHT_THRESHOLD": 160
+  },
+  "ROAD_RASH": {
+    "X_THRESHOLD": 160,
+    "LEFT_THRESHOLD": 130,
+    "RIGHT_THRESHOLD": 130,
+    "GAME_URL": "https://arcadespot.com/game/road-rash/"
+  },
+  "TEKKEN": {
+    "RANDOM_LOWER": 4,
+    "RANDOM_UPPER": 7,
+    "THRESHOLD": 120,
+    "FRONT_POINT_COORDS": [
+      570,
+      250
+    ],
+    "REAR_POINT_COORDS": [
+      80,
+      250
+    ],
+    "RPUNCH_ANGLE_LTHRESH": 75,
+    "RPUNCH_ANGLE_UTHRESH": 100,
+    "LPUNCH_ANGLE_LTHRESH": 70,
+    "LPUNCH_ANGLE_UTHRESH": 150
+  }
+}
