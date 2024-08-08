@@ -1,8 +1,10 @@
 import json
 import pkg_resources
 
+
 def path_converter(filename):
-    return pkg_resources.resource_filename('aiconclave', f'{filename}')
+    return pkg_resources.resource_filename("aiconclave", f"{filename}")
+
 
 ART = """
   A)aa   I)iiii      C)ccc   O)oooo  N)n   nn   C)ccc  L)         A)aa   V)    vv E)eeeeee 
@@ -23,7 +25,7 @@ Query: {}
 Location: {}
 """
 
-with open(path_converter('assets/config.json'), 'r') as json_file:
+with open(path_converter("assets/config.json"), "r") as json_file:
     data = json.load(json_file)
 
 CD_UP_THRESHOLD = data["CHROME_DINO"]["UP_THRESHOLD"]

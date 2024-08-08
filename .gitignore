@@ -5,3 +5,4 @@
 
 pypi
 aiconclave/games/road_rash-punch-test.py
+*.pyc

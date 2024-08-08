@@ -36,7 +36,13 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_data={'aiconclave': ['assets/chrome_dino/jump.mp3', 'assets/config.json', 'assets/tekken/TekkenGame.exe']},
+    package_data={
+        "aiconclave": [
+            "assets/chrome_dino/jump.mp3",
+            "assets/config.json",
+            "assets/tekken/TekkenGame.exe",
+        ]
+    },
     include_package_data=True,
-    license="MIT"
+    license="MIT",
 )
