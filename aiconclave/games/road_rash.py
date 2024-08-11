@@ -58,6 +58,9 @@ def main():
             lmList, _ = pose_detector.findPosition(img, draw=True, bboxWithHands=True)
 
             if len(lmList) >= 16:
+                pg.keyDown("x")
+                x_key_pressed = True
+
                 right_elbow_coords = lmList[11][:2]
                 right_wrist_coords = lmList[15][:2]
 
