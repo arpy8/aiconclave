@@ -47,8 +47,8 @@ def main():
 
     left_key_pressed = False
     right_key_pressed = False
-    wrist_key_pressed = False
     x_key_pressed = False
+    # wrist_key_pressed = False
 
     while True:
         try:
